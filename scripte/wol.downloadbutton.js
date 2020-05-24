@@ -2,7 +2,7 @@
 // @name         WOL - Download-Button
 // @description  Download-Button für Audio-Media
 // @homepage     https://www.alexanderhentzsch.de
-// @version      1.1.0
+// @version      1.1.1
 // @downloadURL  https://raw.githubusercontent.com/AlexanderHentzsch/Tampermonkey/master/scripte/wol.downloadbutton.js
 // @updateURL    https://raw.githubusercontent.com/AlexanderHentzsch/Tampermonkey/master/scripte/wol.downloadbutton.js
 // @author       Alexander Hentzsch
@@ -55,7 +55,6 @@ function searchFormMedia(){
     if(DOM.audio.length === 0) {
         $(DOM.result).css("display", "inline")
     } else {
-        console.log(DOM.audio[0])
         $(DOM.download).css("display", "inline")
         $(DOM.download).attr('href', (DOM.audio[0].src));
     }
