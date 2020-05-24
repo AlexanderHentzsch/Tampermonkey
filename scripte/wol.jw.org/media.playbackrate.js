@@ -1,14 +1,15 @@
 const CHANGE_VALUE = 0.1;
 let interval;
+const documentMenuButtonBindFunc = function () {
+    addDocumentMenuPlaybackRate('open');
+}
 
 $(function () {
     //--- prüfen bis Button verfügbar
     interval = setInterval(function () {
         let DOM = $('#documentMenuButton');
         if (DOM.length > 0) {
-            $('#documentMenuButton').on('click', function(){
-                addDocumentMenuPlaybackRate('open');
-            });
+            DOM.one('click', documentMenuButtonBindFunc);
             clearInterval(interval);
         }
     }, 100)
@@ -18,41 +19,55 @@ function addDocumentMenuPlaybackRate(type) {
     let nPlaybackRate = 1;
     let DOM = $('audio');
     if (DOM.length === 0) {
-        nPlaybackRate = "no media";
+        return;
+        // nPlaybackRate = "no media";
     } else {
         DOM = DOM[0];
-        if (type === undefined || type === 'hold') {
-            nPlaybackRate = DOM.playbackRate;
-        } else if (type === 'add') {
-            nPlaybackRate = DOM.playbackRate + CHANGE_VALUE;
-        } else if (type === 'sub') {
-            nPlaybackRate = DOM.playbackRate - CHANGE_VALUE;
+        nPlaybackRate = DOM.playbackRate.toFixed(1);
+        if (type === 'add' || type === 'sub') {
+            if (type === 'add') {
+                nPlaybackRate = DOM.playbackRate + CHANGE_VALUE;
+            } else if (type === 'sub') {
+                nPlaybackRate = DOM.playbackRate - CHANGE_VALUE;
+            }
+            nPlaybackRate = nPlaybackRate.toFixed(1);
+            DOM.playbackRate = nPlaybackRate;
         }
-        nPlaybackRate = nPlaybackRate.toFixed(1);
-        DOM.playbackRate = nPlaybackRate;
     }
+
+    const iconStyle = `position: relative; top: 3px; font-size: 24px; color: #8e8e8e`;
 
     let html = `<li id="media-console" style="
                 user-select: none;">
-                    <span class="holdElementsPlaybackRate btnPlaybackRate">Wiedergaberate: </span>
+                    <span class="holdElementsPlaybackRate">Wiedergaberate: </span>
                     <span style="float: right">
-                        <span id="btnPlaybackRateSub" class="btnPlaybackRate"><i class="fas fa-minus-circle"></i></span>
-                        <span class="holdElementsPlaybackRate btnPlaybackRate">${nPlaybackRate.toString()}</span>
-                        <span id="btnPlaybackRateAdd" class="btnPlaybackRate"><i class="fas fa-plus-circle"></i></span>
+                        <span id="btnPlaybackRateSub">
+                            <i class="far fa-minus-square" style="${iconStyle}"></i>
+                        </span>
+                        <span class="holdElementsPlaybackRate">${nPlaybackRate}</span>
+                        <span id="btnPlaybackRateAdd">
+                            <i class="btnPlaybackRate far fa-plus-square" style="${iconStyle}"></i>
+                        </span>
                     </span>
                 </li>`;
 
     let DOMContainer = $('#media-console');
     if (DOMContainer.length > 0) {
-        $(".btnPlaybackRate").unbind();
         DOMContainer.remove();
     }
 
     $('ul.documentMenu').append($(html));
 
-    $('#btnPlaybackRateSub').click(function(){addDocumentMenuPlaybackRate('sub');});
-    $('#btnPlaybackRateAdd').click(function(){addDocumentMenuPlaybackRate('add');});
-    $('.holdElementsPlaybackRate').click(function(){addDocumentMenuPlaybackRate('hold');});
+    $('#btnPlaybackRateSub').click(function () {
+        addDocumentMenuPlaybackRate('sub');
+    });
+    $('#btnPlaybackRateAdd').click(function () {
+        addDocumentMenuPlaybackRate('add');
+    });
+    $('.holdElementsPlaybackRate').click(function () {
+        addDocumentMenuPlaybackRate('hold');
+    });
+
 
     if (type !== undefined && type !== 'open') {
         //--- Optionsmenü wieder öffnen

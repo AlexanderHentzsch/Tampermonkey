@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version      1.0.2
+// @version      1.0.3
 // @name         WOL - Media Playback Rate
 // @description  Buttons um die Wiedergabegeschwindigkeit von Audio-Containern zu ändern
 // @author       Alexander Hentzsch
