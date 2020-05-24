@@ -1,20 +1,6 @@
-// ==UserScript==
-// @version      1.0.1
-// @name         WOL - Media Playback Rate
-// @description  Buttons um die Wiedergabegeschwindigkeit von Audio-Containern zu ändern
-// @author       Alexander Hentzsch
-// @homepage     https://www.alexanderhentzsch.de
-// @include      https://wol.jw.org*
-// @require      https://kit.fontawesome.com/2e52e2418a.js
-// @downloadURL  https://alexanderhentzsch-tampermonkey.netlify.app/scripte/wol.media.playbackrate.js
-// @updateURL    https://alexanderhentzsch-tampermonkey.netlify.app/scripte/wol.media.playbackrate.js
-// @supportURL   https://github.com/AlexanderHentzsch/Tampermonkey
-// @grant        none
-// ==/UserScript==
-
 const CHANGE_VALUE = 0.1;
-
 let interval;
+
 $(function () {
     //--- prüfen bis Button verfügbar
     interval = setInterval(function () {
@@ -29,10 +15,8 @@ $(function () {
 })
 
 function addDocumentMenuPlaybackRate(type) {
-    console.log(type)
     let nPlaybackRate = 1;
     let DOM = $('audio');
-    console.log(DOM)
     if (DOM.length === 0) {
         nPlaybackRate = "no media";
     } else {
