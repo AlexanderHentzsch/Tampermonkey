@@ -1,12 +1,16 @@
 ### Tampermonkey
 
-Dokumentation: https://www.tampermonkey.net/documentation.php
+#### Scripte für Tampermonkey
+##### Importieren
+AddOn Tampermonkey >>> Übersicht >>> Hilfsmittel (Registerkarte) >>> Installation via URL
 
-Scripte einfach in Tampermonkey einbinden.
+##### Watchtower Online Library
+- Dowloadbutton für Media: https://alexanderhentzsch-tampermonkey.netlify.app/import/wol.jw.org/media.downloadbutton.js
+- Buttons um die Wiedergabegeschwindigkeit zu ändern: https://alexanderhentzsch-tampermonkey.netlify.app/import/wol.jw.org/media.playbackrate.js
+
 
 #### Für die lokale Entwicklung
-Dokumentation: https://www.tampermonkey.net/documentation.php?ext=dhdg
-
+Dokumentation: https://www.tampermonkey.net/documentation.php
 
 Dieses Script als neues Script hinterlegen
 ```js
@@ -21,12 +25,9 @@ Dieses Script als neues Script hinterlegen
 // @grant        none
 // ==/UserScript==
 
-const url = "http://localhost:8080/scripte/wol.media.playbackrate.js";
+const url = "http://localhost:8080/scripte/media.playbackrate.js";
 let remoteScript = document.createElement('script');
 remoteScript.src = `${url}?ts=${new Date().getTime()}`;
 document.body.appendChild(remoteScript);
 ```
 PHP-Server auf localhost:8080 starten.
-
-Nach Fertigstellung über Registerkarte Hilfsmittel >>> Installation via URL die URL zur Scriptdatei
-angeben, z.B. http://localhost:8080/scripte/wol.media.playbackrate.js
