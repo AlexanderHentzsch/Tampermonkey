@@ -1,5 +1,7 @@
 ### Tampermonkey
 
+Dokumentation: https://www.tampermonkey.net/documentation.php
+
 Scripte einfach in Tampermonkey einbinden.
 
 #### Für die lokale Entwicklung
