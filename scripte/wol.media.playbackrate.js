@@ -1,25 +1,38 @@
 // ==UserScript==
+// @version      1.0.1
 // @name         WOL - Media Playback Rate
 // @description  Buttons um die Wiedergabegeschwindigkeit von Audio-Containern zu ändern
-// @homepage     https://www.alexanderhentzsch.de
-// @version      1.0.0
-// @downloadURL  https://raw.githubusercontent.com/AlexanderHentzsch/Tampermonkey/master/scripte/wol.media.playbackrate.js
-// @updateURL    https://raw.githubusercontent.com/AlexanderHentzsch/Tampermonkey/master/scripte/wol.media.playbackrate.js
 // @author       Alexander Hentzsch
+// @homepage     https://www.alexanderhentzsch.de
 // @include      https://wol.jw.org*
 // @require      https://kit.fontawesome.com/2e52e2418a.js
+// @downloadURL  https://alexanderhentzsch-tampermonkey.netlify.app/scripte/wol.media.playbackrate.js
+// @updateURL    https://alexanderhentzsch-tampermonkey.netlify.app/scripte/wol.media.playbackrate.js
+// @supportURL   https://github.com/AlexanderHentzsch/Tampermonkey
 // @grant        none
 // ==/UserScript==
 
 const CHANGE_VALUE = 0.1;
 
+let interval;
 $(function () {
-    createPlaybackRateContainer()
+    //--- prüfen bis Button verfügbar
+    interval = setInterval(function () {
+        let DOM = $('#documentMenuButton');
+        if (DOM.length > 0) {
+            $('#documentMenuButton').on('click', function(){
+                addDocumentMenuPlaybackRate('open');
+            });
+            clearInterval(interval);
+        }
+    }, 100)
 })
 
-function createPlaybackRateContainer(type) {
+function addDocumentMenuPlaybackRate(type) {
+    console.log(type)
     let nPlaybackRate = 1;
     let DOM = $('audio');
+    console.log(DOM)
     if (DOM.length === 0) {
         nPlaybackRate = "no media";
     } else {
@@ -37,21 +50,27 @@ function createPlaybackRateContainer(type) {
 
     let html = `<li id="media-console" style="
                 user-select: none;">
-                    <span onclick="createPlaybackRateContainer('hold')">Wiedergaberate: </span>
+                    <span class="holdElementsPlaybackRate btnPlaybackRate">Wiedergaberate: </span>
                     <span style="float: right">
-                        <span onclick="createPlaybackRateContainer('sub')"><i class="fas fa-minus-circle"></i></span>
-                        <span onclick="createPlaybackRateContainer('hold')">${nPlaybackRate.toString()}</span>
-                        <span onclick="createPlaybackRateContainer('add')"><i class="fas fa-plus-circle"></i></span>
+                        <span id="btnPlaybackRateSub" class="btnPlaybackRate"><i class="fas fa-minus-circle"></i></span>
+                        <span class="holdElementsPlaybackRate btnPlaybackRate">${nPlaybackRate.toString()}</span>
+                        <span id="btnPlaybackRateAdd" class="btnPlaybackRate"><i class="fas fa-plus-circle"></i></span>
                     </span>
                 </li>`;
 
     let DOMContainer = $('#media-console');
-    if (DOMContainer.length > 0)
+    if (DOMContainer.length > 0) {
+        $(".btnPlaybackRate").unbind();
         DOMContainer.remove();
+    }
 
     $('ul.documentMenu').append($(html));
 
-    if (type !== undefined) {
+    $('#btnPlaybackRateSub').click(function(){addDocumentMenuPlaybackRate('sub');});
+    $('#btnPlaybackRateAdd').click(function(){addDocumentMenuPlaybackRate('add');});
+    $('.holdElementsPlaybackRate').click(function(){addDocumentMenuPlaybackRate('hold');});
+
+    if (type !== undefined && type !== 'open') {
         //--- Optionsmenü wieder öffnen
         setTimeout(function () {
             $('#documentMenuButton').click();
