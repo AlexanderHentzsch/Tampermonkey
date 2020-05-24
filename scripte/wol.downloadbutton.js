@@ -1,13 +1,14 @@
 // ==UserScript==
+// @version      1.1.2
 // @name         WOL - Download-Button
 // @description  Download-Button für Audio-Media
-// @homepage     https://www.alexanderhentzsch.de
-// @version      1.1.1
-// @downloadURL  https://raw.githubusercontent.com/AlexanderHentzsch/Tampermonkey/master/scripte/wol.downloadbutton.js
-// @updateURL    https://raw.githubusercontent.com/AlexanderHentzsch/Tampermonkey/master/scripte/wol.downloadbutton.js
 // @author       Alexander Hentzsch
+// @homepage     https://www.alexanderhentzsch.de
 // @include      https://wol.jw.org*
 // @require      https://kit.fontawesome.com/2e52e2418a.js
+// @downloadURL  https://alexanderhentzsch-tampermonkey.netlify.app/scripte/wol.downloadbutton.js
+// @updateURL    https://alexanderhentzsch-tampermonkey.netlify.app/scripte/wol.downloadbutton.js
+// @supportURL   https://github.com/AlexanderHentzsch/Tampermonkey
 // @grant        none
 // ==/UserScript==
 
